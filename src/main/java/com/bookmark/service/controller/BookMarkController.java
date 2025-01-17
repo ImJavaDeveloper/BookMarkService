@@ -2,6 +2,7 @@ package com.bookmark.service.controller;
 
 
 import com.bookmark.service.entity.BookMark;
+import com.bookmark.service.exception.NoBookMarkFoundException;
 import com.bookmark.service.service.BookMarkService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,9 @@ public class BookMarkController {
     @GetMapping("/allBookMarks")
     public ResponseEntity<List<BookMark>> getAllBookMarks()
     {
+        log.info("Getting All Bookmarks Data");
         List<BookMark> bookMarks=bookMarkService.getAllBookmark();
         log.info(bookMarks.toString());
-        //bookMarkService.getAllBookmark().forEach(x-> System.out.println(x.getProduct()));
         return ResponseEntity.ok(bookMarks);
     }
 
@@ -31,7 +32,9 @@ public class BookMarkController {
     public ResponseEntity<BookMark> getBookMarkById(@PathVariable String bookMarkId)
     {
         BookMark bookMark=bookMarkService.findBookMarkById(bookMarkId);
-        log.info(bookMark.toString());
+        if(bookMark == null)
+            throw new NoBookMarkFoundException("No Bookmark Found");
+       // log.info(bookMark.toString());
         return ResponseEntity.ok(bookMark);
     }
     @PostMapping("/bookmark")
