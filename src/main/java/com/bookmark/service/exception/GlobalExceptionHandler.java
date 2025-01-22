@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorMessage> handleException(Exception ex)
     {
         ErrorMessage errorMessage=new ErrorMessage();
-        errorMessage.setError(ex.getMessage());
+        errorMessage.setError(ex.fillInStackTrace().toString());
         errorMessage.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return  new ResponseEntity<>(errorMessage,HttpStatus.INTERNAL_SERVER_ERROR);
     }

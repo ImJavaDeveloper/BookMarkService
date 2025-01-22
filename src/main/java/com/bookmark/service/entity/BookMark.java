@@ -5,11 +5,12 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Document(collection ="bookmarkData")
 @Data
-public class BookMark {
+public class BookMark implements Serializable {
 
     @Override
     public String toString() {

@@ -11,4 +11,5 @@ public interface BookMarkService {
     BookMark updateBookMark(String bookmarkId,BookMark bookMark);
     void deleteBookMark(String  bookMarkId);
     List<BookMark> getAllBookmark();
+    void clearProductCache();
 }

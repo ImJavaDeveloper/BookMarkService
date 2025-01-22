@@ -31,10 +31,10 @@ public class BookMarkController {
     @GetMapping("/{bookMarkId}")
     public ResponseEntity<BookMark> getBookMarkById(@PathVariable String bookMarkId)
     {
+        log.info("Getting Bookmarks Data:{}",bookMarkId);
         BookMark bookMark=bookMarkService.findBookMarkById(bookMarkId);
         if(bookMark == null)
             throw new NoBookMarkFoundException("No Bookmark Found");
-       // log.info(bookMark.toString());
         return ResponseEntity.ok(bookMark);
     }
     @PostMapping("/bookmark")
@@ -55,6 +55,13 @@ public class BookMarkController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBookmark(@PathVariable String id) {
         bookMarkService.deleteBookMark(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/clear-cache")
+    public ResponseEntity<Void> clearCache()
+    {
+        bookMarkService.clearProductCache();
         return ResponseEntity.noContent().build();
     }
 }
